@@ -1,9 +1,11 @@
 <div
   *ngFor="let note of notes; let i = index"
-  [class.selected]="i === selectedNoteIndex"
   (click)="selectNote(i)"
+  [ngClass]="{
+    selected: i === selectedNoteIndex,
+    'favorite-note': isFavorite(i)
+  }"
   class="border rounded p-2"
-  [ngClass]="{ 'favorite-note': isFavorite(i) }"
   [style.color]="note.color"
 >
   {{ note.title }}

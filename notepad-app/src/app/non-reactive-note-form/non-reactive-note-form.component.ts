@@ -49,6 +49,7 @@ export class NonReactiveNoteFormComponent implements OnInit {
       favorite: false,
       color: '',
     };
+    this.noteService.deselectNote();
     this.showForm = true;
   }
 
@@ -64,12 +65,13 @@ export class NonReactiveNoteFormComponent implements OnInit {
       this.noteService.addOrUpdateNote({ ...this.note });
     }
 
-    this.showForm = true; // Show the form after saving
-    this.noteSaved.emit(); // Emit the event
+    // Show the form after saving
+    this.showForm = true;
+    this.noteSaved.emit();
   }
 
   private generateUniqueId(): number {
-    // For simplicity, using a timestamp as an example here
+    // using timestamp
     return new Date().getTime();
   }
 }

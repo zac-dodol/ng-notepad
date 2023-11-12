@@ -2,6 +2,7 @@
   <div class="d-flex flex-column w-50 gap-1">
     <div class="form-group">
       <label for="title">Title:</label>
+
       <input
         id="title"
         type="text"
@@ -11,6 +12,7 @@
         required
         #titleInput="ngModel"
       />
+
       <div *ngIf="!note.title" class="text-danger">Title is required.</div>
     </div>
 
@@ -39,7 +41,7 @@
 
 <div>
   Please select a note or
-  <a (click)="createNewNote()" class="note-new"
-    >click here to create a new one</a
-  >
+  <a (click)="createNewNote()" class="note-new">
+    click here to create a new one
+  </a>
 </div>

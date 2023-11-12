@@ -31,8 +31,13 @@ export class NoteService {
     this.selectedNoteIndexSubject.next(index);
   }
 
+  deselectNote(): void {
+    this.selectedNoteIndexSubject.next(null);
+  }
+
   addOrUpdateNote(note: Note): void {
     const existingNoteIndex = this.selectedNoteIndexSubject.value;
+
     if (existingNoteIndex !== null && existingNoteIndex !== undefined) {
       // Update existing note
       this.notes[existingNoteIndex] = note;
@@ -40,7 +45,9 @@ export class NoteService {
       // Add new note
       this.notes.push(note);
     }
-    this.selectedNoteIndexSubject.next(null); // Clear selection
+
+    // Clear selection
+    this.selectedNoteIndexSubject.next(null);
   }
 
   getLastNoteIndex(): number {

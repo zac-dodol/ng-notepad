@@ -1,10 +1,4 @@
-import {
-  Component,
-  DoCheck,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Note } from '../note.model';
 import { NoteService } from '../note.service';
 
@@ -13,7 +7,7 @@ import { NoteService } from '../note.service';
   templateUrl: './note-list.component.html',
   styleUrls: ['./note-list.component.scss'],
 })
-export class NoteListComponent implements OnInit, DoCheck {
+export class NoteListComponent implements OnInit {
   @Output() noteSelected: EventEmitter<number> = new EventEmitter<number>();
 
   notes: Note[] = [];
@@ -22,23 +16,22 @@ export class NoteListComponent implements OnInit, DoCheck {
   constructor(private noteService: NoteService) {}
 
   ngOnInit(): void {
+    // subscribe to note service for access to the array and functions
     this.noteService.getNotes().subscribe((notes) => (this.notes = notes));
     this.noteService
       .getSelectedNoteIndex()
       .subscribe((index) => (this.selectedNoteIndex = index));
   }
 
-  ngDoCheck(): void {
-    console.log(this.notes);
-  }
-
   selectNote(index: number): void {
     this.noteService.selectNote(index);
+
+    // inform parent is a note is selected
     this.noteSelected.emit(index);
   }
 
   isFavorite(index: number): boolean {
-    // Add logic to check if the note at the given index is marked as favorite
+    // check if marked as favorite
     return this.notes[index]?.favorite ?? false;
   }
 }

@@ -14,9 +14,6 @@ export class AppComponent {
   @ViewChild(NoteListComponent) noteListComponent!: NoteListComponent;
 
   handleNoteSaved(): void {
-    // Handle the note saved event, if needed
-    console.log('note saved');
-
     // Call selectNote function from NoteListComponent
     const lastIndex = this.nonReactiveNoteForm.noteService.getLastNoteIndex();
     this.noteListComponent.selectNote(lastIndex);

@@ -27,21 +27,32 @@ export class NoteFormComponent implements OnInit {
   ngOnInit(): void {
     this.noteService.getNotes().subscribe((notes) => {
       this.noteService.getSelectedNoteIndex().subscribe((index) => {
+        // Show selected note or empty form
         if (index !== null && index !== undefined) {
           const selectedNote = notes[index];
           this.noteForm.setValue(selectedNote);
-          this.showForm = true; // Show the form when a note is selected
+
+          // Show the form when a note is selected
+          this.showForm = true;
         } else {
           this.noteForm.reset();
-          this.showForm = false; // Hide the form when no note is selected
+
+          // Hide the form when no note is selected
+          this.showForm = false;
         }
       });
     });
   }
 
   createNewNote(): void {
+    // reset form
     this.noteForm.reset();
-    this.showForm = true; // Show the form when creating a new note
+
+    // deselect if note was selected prior
+    this.noteService.deselectNote();
+
+    // Show the form when creating a new note
+    this.showForm = true;
   }
 
   saveNote(): void {
@@ -50,6 +61,7 @@ export class NoteFormComponent implements OnInit {
       control.markAsTouched();
     });
 
+    // save note if form input all valid
     if (this.noteForm.valid) {
       const note: Note = this.noteForm.value;
 
@@ -58,14 +70,17 @@ export class NoteFormComponent implements OnInit {
         note.id = this.generateUniqueId();
       }
 
+      // update note if ID exist
       this.noteService.addOrUpdateNote(note);
       this.noteSaved.emit();
-      this.showForm = true; // Show the form after saving
+
+      // Show the form after saving
+      this.showForm = true;
     }
   }
 
   private generateUniqueId(): number {
-    // For simplicity, using a timestamp as an example here
+    // using timestamp
     return new Date().getTime();
   }
 }

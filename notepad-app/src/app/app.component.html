@@ -7,13 +7,16 @@
     <mat-slide-toggle [(ngModel)]="reactiveForms">
       Show Reactive Form
     </mat-slide-toggle>
+
     <div class="right-panel-top" *ngIf="reactiveForms">
       <p>Reactive form</p>
+
       <app-note-form (noteSaved)="handleNoteSaved()"></app-note-form>
     </div>
 
     <div class="right-panel-bottom">
       <p>Non Reactive Form</p>
+
       <app-non-reactive-note-form
         (noteSaved)="handleNoteSaved()"
       ></app-non-reactive-note-form>
