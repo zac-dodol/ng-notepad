@@ -42,4 +42,8 @@ export class NoteService {
     }
     this.selectedNoteIndexSubject.next(null); // Clear selection
   }
+
+  getLastNoteIndex(): number {
+    return this.notes.length - 1;
+  }
 }

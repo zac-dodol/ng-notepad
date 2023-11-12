@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Note } from '../note.model';
 import { NoteService } from '../note.service';
 
@@ -7,7 +13,9 @@ import { NoteService } from '../note.service';
   templateUrl: './note-list.component.html',
   styleUrls: ['./note-list.component.scss'],
 })
-export class NoteListComponent implements OnInit {
+export class NoteListComponent implements OnInit, DoCheck {
+  @Output() noteSelected: EventEmitter<number> = new EventEmitter<number>();
+
   notes: Note[] = [];
   selectedNoteIndex: number | null = null;
 
@@ -20,8 +28,13 @@ export class NoteListComponent implements OnInit {
       .subscribe((index) => (this.selectedNoteIndex = index));
   }
 
+  ngDoCheck(): void {
+    console.log(this.notes);
+  }
+
   selectNote(index: number): void {
     this.noteService.selectNote(index);
+    this.noteSelected.emit(index);
   }
 
   isFavorite(index: number): boolean {

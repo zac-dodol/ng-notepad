@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Note } from '../note.model';
 import { NoteService } from '../note.service';
 
@@ -8,6 +8,8 @@ import { NoteService } from '../note.service';
   styleUrls: ['./non-reactive-note-form.component.scss'],
 })
 export class NonReactiveNoteFormComponent implements OnInit {
+  @Output() noteSaved: EventEmitter<void> = new EventEmitter<void>();
+
   note: Note = {
     id: undefined,
     title: '',
@@ -16,9 +18,8 @@ export class NonReactiveNoteFormComponent implements OnInit {
     color: '',
   };
   showForm = false;
-  formSubmitted = false;
 
-  constructor(private noteService: NoteService) {}
+  constructor(public noteService: NoteService) {}
 
   ngOnInit(): void {
     this.noteService.getNotes().subscribe((notes) => {
@@ -52,14 +53,23 @@ export class NonReactiveNoteFormComponent implements OnInit {
   }
 
   saveNote(): void {
-    this.formSubmitted = true;
     if (this.note.id !== null && this.note.id !== undefined) {
       // Update existing note
       this.noteService.addOrUpdateNote(this.note);
     } else {
+      // Generate a unique id for a new note
+      this.note.id = this.generateUniqueId();
+
       // Add new note
       this.noteService.addOrUpdateNote({ ...this.note });
     }
+
     this.showForm = true; // Show the form after saving
+    this.noteSaved.emit(); // Emit the event
+  }
+
+  private generateUniqueId(): number {
+    // For simplicity, using a timestamp as an example here
+    return new Date().getTime();
   }
 }

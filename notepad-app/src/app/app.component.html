@@ -1,6 +1,6 @@
 <div class="container d-flex mt-4">
   <div class="left-panel">
-    <app-note-list></app-note-list>
+    <app-note-list (noteSelected)="handleNoteSelected($event)"></app-note-list>
   </div>
 
   <div class="right-panel d-flex flex-column gap-4">
@@ -9,12 +9,14 @@
     </mat-slide-toggle>
     <div class="right-panel-top" *ngIf="reactiveForms">
       <p>Reactive form</p>
-      <app-note-form></app-note-form>
+      <app-note-form (noteSaved)="handleNoteSaved()"></app-note-form>
     </div>
 
     <div class="right-panel-bottom">
       <p>Non Reactive Form</p>
-      <app-non-reactive-note-form></app-non-reactive-note-form>
+      <app-non-reactive-note-form
+        (noteSaved)="handleNoteSaved()"
+      ></app-non-reactive-note-form>
     </div>
   </div>
 </div>

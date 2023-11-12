@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Note } from '../note.model';
 import { NoteService } from '../note.service';
@@ -9,6 +9,8 @@ import { NoteService } from '../note.service';
   styleUrls: ['./note-form.component.scss'],
 })
 export class NoteFormComponent implements OnInit {
+  @Output() noteSaved: EventEmitter<void> = new EventEmitter<void>();
+
   noteForm: FormGroup;
   showForm = false;
 
@@ -50,7 +52,20 @@ export class NoteFormComponent implements OnInit {
 
     if (this.noteForm.valid) {
       const note: Note = this.noteForm.value;
+
+      // Check if the id is null or undefined, then generate a new id
+      if (note.id === null || note.id === undefined) {
+        note.id = this.generateUniqueId();
+      }
+
       this.noteService.addOrUpdateNote(note);
+      this.noteSaved.emit();
+      this.showForm = true; // Show the form after saving
     }
+  }
+
+  private generateUniqueId(): number {
+    // For simplicity, using a timestamp as an example here
+    return new Date().getTime();
   }
 }
