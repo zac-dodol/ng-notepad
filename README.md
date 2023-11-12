@@ -13,4 +13,7 @@ A notepad applications that keeps the tile, description, favourite and color lab
 - When note is set to favorite and saved it should have bigger font (16px) 
 - Note title on the list should have note's color
 
+- instruction to run
+  ng serve
+
  [notepadApp.webm](https://github.com/zac-dodol/notepad-app/assets/46713066/a6961da4-f4fb-4fe2-bd8f-d9ae3eac6bbe)
