@@ -22,6 +22,5 @@ export class NoteListComponent implements OnInit {
 
   selectNote(index: number): void {
     this.noteService.selectNote(index);
-    console.log(index);
   }
 }

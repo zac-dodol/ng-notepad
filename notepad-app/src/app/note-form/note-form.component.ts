@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Note } from '../note.model';
 import { NoteService } from '../note.service';
 
@@ -13,8 +13,9 @@ export class NoteFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private noteService: NoteService) {
     this.noteForm = this.fb.group({
-      title: '',
-      body: '',
+      id: null,
+      title: ['', Validators.required],
+      body: ['', Validators.required],
       favorite: false,
       color: 'yellow',
     });
@@ -34,7 +35,14 @@ export class NoteFormComponent implements OnInit {
   }
 
   saveNote(): void {
-    const note: Note = this.noteForm.value;
-    this.noteService.addOrUpdateNote(note);
+    // Mark all controls as touched to trigger validation
+    Object.values(this.noteForm.controls).forEach((control) => {
+      control.markAsTouched();
+    });
+
+    if (this.noteForm.valid) {
+      const note: Note = this.noteForm.value;
+      this.noteService.addOrUpdateNote(note);
+    }
   }
 }

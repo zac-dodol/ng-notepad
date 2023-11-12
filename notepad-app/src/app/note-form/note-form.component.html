@@ -1,22 +1,44 @@
-<form
-  [formGroup]="noteForm"
-  (ngSubmit)="saveNote()"
-  class="d-flex flex-column w-50 gap-1"
->
-  <label>Title:</label>
-  <input formControlName="title" />
+<form [formGroup]="noteForm" (ngSubmit)="saveNote()" class="">
+  <div class="d-flex flex-column w-50 gap-1">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          noteForm.get('title')?.hasError('required') &&
+          noteForm.get('title')?.touched
+        "
+        class="text-danger"
+      >
+        Title is required.
+      </div>
+    </div>
 
-  <label>Body:</label>
-  <textarea formControlName="body"></textarea>
+    <label>Body:</label>
+    <textarea formControlName="body"></textarea>
 
-  <label> <input type="checkbox" formControlName="favorite" /> Favorite </label>
+    <label>
+      <input type="checkbox" formControlName="favorite" /> Favorite
+    </label>
 
-  <label>Color:</label>
-  <select formControlName="color">
-    <option value="yellow">Yellow</option>
-    <option value="blue">Blue</option>
-    <option value="green">Green</option>
-  </select>
+    <label>Color:</label>
+    <select formControlName="color">
+      <option value="yellow">Yellow</option>
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+    </select>
+  </div>
 
-  <button type="submit">Save</button>
+  <div class="mt-2">
+    <button type="submit">Save</button>
+    <div>
+      Please select note or
+      <a href="#" class="note-new">click here to create new one</a>
+    </div>
+  </div>
 </form>

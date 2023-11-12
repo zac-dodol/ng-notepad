@@ -12,7 +12,7 @@ export class NoteService {
       title: 'Mock Title',
       body: 'mock body',
       favorite: true,
-      color: '#ff0000',
+      color: 'yellow',
     },
   ];
 
