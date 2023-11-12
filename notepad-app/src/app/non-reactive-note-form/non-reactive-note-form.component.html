@@ -1,0 +1,45 @@
+<div *ngIf="showForm">
+  <div class="d-flex flex-column w-50 gap-1">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input
+        id="title"
+        type="text"
+        [(ngModel)]="note.title"
+        name="title"
+        class="form-control"
+        required
+        #titleInput="ngModel"
+      />
+      <div *ngIf="!note.title" class="text-danger">Title is required.</div>
+    </div>
+
+    <label>Body:</label>
+    <textarea [(ngModel)]="note.body" name="body" required></textarea>
+
+    <label>
+      <input type="checkbox" [(ngModel)]="note.favorite" name="favorite" />
+      Favorite
+    </label>
+
+    <label>Color:</label>
+    <input type="color" [(ngModel)]="note.color" name="color" />
+  </div>
+
+  <div class="my-2">
+    <button
+      class="btn btn-primary"
+      (click)="saveNote()"
+      [disabled]="!note.title"
+    >
+      Save
+    </button>
+  </div>
+</div>
+
+<div>
+  Please select a note or
+  <a (click)="createNewNote()" class="note-new"
+    >click here to create a new one</a
+  >
+</div>

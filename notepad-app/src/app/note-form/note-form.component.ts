@@ -16,7 +16,7 @@ export class NoteFormComponent implements OnInit {
     this.noteForm = this.fb.group({
       id: null,
       title: ['', Validators.required],
-      body: ['', Validators.required],
+      body: '',
       favorite: false,
       color: 'yellow',
     });
