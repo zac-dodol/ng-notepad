@@ -1,4 +1,4 @@
-<form [formGroup]="noteForm" (ngSubmit)="saveNote()" class="">
+<form [formGroup]="noteForm" (ngSubmit)="saveNote()" class="" *ngIf="showForm">
   <div class="d-flex flex-column w-50 gap-1">
     <div class="form-group">
       <label for="title">Title:</label>
@@ -36,9 +36,10 @@
 
   <div class="mt-2">
     <button type="submit">Save</button>
-    <div>
-      Please select note or
-      <a href="#" class="note-new">click here to create new one</a>
-    </div>
   </div>
 </form>
+
+<div>
+  Please select note or
+  <a (click)="createNewNote()" class="note-new">click here to create new one</a>
+</div>

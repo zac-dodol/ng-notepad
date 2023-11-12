@@ -10,6 +10,7 @@ import { NoteService } from '../note.service';
 })
 export class NoteFormComponent implements OnInit {
   noteForm: FormGroup;
+  showForm = false;
 
   constructor(private fb: FormBuilder, private noteService: NoteService) {
     this.noteForm = this.fb.group({
@@ -27,11 +28,18 @@ export class NoteFormComponent implements OnInit {
         if (index !== null && index !== undefined) {
           const selectedNote = notes[index];
           this.noteForm.setValue(selectedNote);
+          this.showForm = true; // Show the form when a note is selected
         } else {
           this.noteForm.reset();
+          this.showForm = false; // Hide the form when no note is selected
         }
       });
     });
+  }
+
+  createNewNote(): void {
+    this.noteForm.reset();
+    this.showForm = true; // Show the form when creating a new note
   }
 
   saveNote(): void {
