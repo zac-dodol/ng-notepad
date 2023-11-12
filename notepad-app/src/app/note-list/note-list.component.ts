@@ -23,4 +23,9 @@ export class NoteListComponent implements OnInit {
   selectNote(index: number): void {
     this.noteService.selectNote(index);
   }
+
+  isFavorite(index: number): boolean {
+    // Add logic to check if the note at the given index is marked as favorite
+    return this.notes[index]?.favorite ?? false;
+  }
 }
