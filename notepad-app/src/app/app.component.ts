@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NonReactiveNoteFormComponent } from './non-reactive-note-form/non-reactive-note-form.component';
 import { NoteListComponent } from './note-list/note-list.component';
+import { NoteFormComponent } from './note-form/note-form.component';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +10,23 @@ import { NoteListComponent } from './note-list/note-list.component';
 })
 export class AppComponent {
   reactiveForms = false;
+  nonReactiveForm = true;
+
   @ViewChild(NonReactiveNoteFormComponent)
   nonReactiveNoteForm!: NonReactiveNoteFormComponent;
+  @ViewChild(NoteFormComponent) noteForm!: NoteFormComponent;
   @ViewChild(NoteListComponent) noteListComponent!: NoteListComponent;
 
-  handleNoteSaved(): void {
-    // Call selectNote function from NoteListComponent
-    const lastIndex = this.nonReactiveNoteForm.noteService.getLastNoteIndex();
-    this.noteListComponent.selectNote(lastIndex);
+  handleNoteSaved(savedFrom: 'nonReactiveNoteForm' | 'noteForm'): void {
+    // Call selectNote function from NoteListComponent based on the saved form
+    const lastIndex =
+      savedFrom === 'nonReactiveNoteForm'
+        ? this.nonReactiveNoteForm.noteService.getLastNoteIndex()
+        : this.noteForm.noteService.getLastNoteIndex();
+
+    if (lastIndex !== undefined) {
+      this.noteListComponent.selectNote(lastIndex);
+    }
   }
 
   handleNoteSelected(index: number): void {

@@ -14,7 +14,7 @@ export class NoteFormComponent implements OnInit {
   noteForm: FormGroup;
   showForm = false;
 
-  constructor(private fb: FormBuilder, private noteService: NoteService) {
+  constructor(private fb: FormBuilder, public noteService: NoteService) {
     this.noteForm = this.fb.group({
       id: null,
       title: ['', Validators.required],
