@@ -17,6 +17,7 @@ export class NonReactiveNoteFormComponent implements OnInit {
     favorite: false,
     color: '',
   };
+
   showForm = false;
 
   constructor(public noteService: NoteService) {}
@@ -24,8 +25,11 @@ export class NonReactiveNoteFormComponent implements OnInit {
   ngOnInit(): void {
     this.noteService.getNotes().subscribe((notes) => {
       this.noteService.getSelectedNoteIndex().subscribe((index) => {
+        // Show selected note or empty form
         if (index !== null && index !== undefined) {
           this.note = { ...notes[index] };
+
+          // Show the form when a note is selected
           this.showForm = true;
         } else {
           this.note = {
@@ -35,6 +39,8 @@ export class NonReactiveNoteFormComponent implements OnInit {
             favorite: false,
             color: '',
           };
+
+          // Hide the form when no note is selected
           this.showForm = false;
         }
       });
@@ -42,6 +48,7 @@ export class NonReactiveNoteFormComponent implements OnInit {
   }
 
   createNewNote(): void {
+    // reset form
     this.note = {
       id: undefined,
       title: '',
@@ -49,7 +56,11 @@ export class NonReactiveNoteFormComponent implements OnInit {
       favorite: false,
       color: '',
     };
+
+    // deselect if note was selected prior
     this.noteService.deselectNote();
+
+    // Show the form when creating a new note
     this.showForm = true;
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Note } from '../note.model';
 import { NoteService } from '../note.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-note-form',
@@ -82,5 +83,9 @@ export class NoteFormComponent implements OnInit {
   private generateUniqueId(): number {
     // using timestamp
     return new Date().getTime();
+
+    // returns string, need to change for both type of forms
+    // Generate a Version 4 (random) UUID
+    // return uuidv4();
   }
 }

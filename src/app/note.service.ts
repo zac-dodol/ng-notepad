@@ -37,6 +37,7 @@ export class NoteService {
 
   addOrUpdateNote(note: Note): void {
     const existingNoteIndex = this.selectedNoteIndexSubject.value;
+    console.log(existingNoteIndex);
 
     if (existingNoteIndex !== null && existingNoteIndex !== undefined) {
       // Update existing note
