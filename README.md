@@ -1,4 +1,4 @@
-# notepad-app
+# ng-notepad-app
 A notepad applications that keeps the tile, description, favourite and color label using angular
 
 - Each item in list should show note title
